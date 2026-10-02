@@ -91,7 +91,7 @@ async def list_readings(request: web.Request) -> web.Response:
         """
         SELECT id, probe_id, temp_c, verdict, reason, status, created_by, created_at, processed_at
         FROM probe_readings
-        ORDER BY id ASC
+        ORDER BY id DESC
         """
     )
     out = []

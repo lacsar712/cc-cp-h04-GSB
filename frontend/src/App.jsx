@@ -47,7 +47,7 @@ export function App() {
       return;
     }
     const data = await res.json();
-      setRows([...data].reverse()); /* h04-trap-reverse */
+    setRows(data);
   }, [token, authHeaders]);
 
   useEffect(() => {
