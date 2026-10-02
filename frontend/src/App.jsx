@@ -47,7 +47,7 @@ export function App() {
       return;
     }
     const data = await res.json();
-      setRows([...data].reverse()); /* h04-trap-reverse */
+      setRows(data); /* 后端已按 id DESC 返回，界面不再倒序 */
   }, [token, authHeaders]);
 
   useEffect(() => {
@@ -216,7 +216,12 @@ export function App() {
       )}
 
       <div class="card">
-        <h2 style={{ marginTop: 0, fontSize: "1.1rem" }}>读数列表</h2>
+        <h2 style={{ marginTop: 0, fontSize: "1.1rem" }}>
+          读数列表
+          <span class="sub" style={{ marginLeft: "0.6rem", fontSize: "0.85rem" }}>
+            最新提交在前（固定顺序，不可倒序）
+          </span>
+        </h2>
         <table>
           <thead>
             <tr>

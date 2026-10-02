@@ -8,6 +8,7 @@ from aiohttp import web
 from passlib.context import CryptContext
 
 from db import create_pool, ensure_schema_async, seed_if_empty
+from order_skew import list_order_sql
 from rules import judge_temp
 
 SECRET = os.environ.get("JWT_SECRET", "coldchain-probe-dev-secret")
@@ -88,10 +89,10 @@ async def list_readings(request: web.Request) -> web.Response:
     require_user(request)
     pool: asyncpg.Pool = request.app["pool"]
     rows = await pool.fetch(
-        """
+        f"""
         SELECT id, probe_id, temp_c, verdict, reason, status, created_by, created_at, processed_at
         FROM probe_readings
-        ORDER BY id ASC
+        {list_order_sql()}
         """
     )
     out = []
